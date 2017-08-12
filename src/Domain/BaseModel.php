@@ -1,7 +1,7 @@
 <?php
 namespace Zodream\Module\OAuth\Domain;
 
-use Zodream\Domain\Model\Model;
+use Zodream\Database\Model\Model;
 use Zodream\Infrastructure\Database\Schema\Table;
 use Zodream\Infrastructure\ObjectExpand\StringExpand;
 

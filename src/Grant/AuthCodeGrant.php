@@ -8,7 +8,7 @@ namespace Zodream\Service\Rest\OAuth\Grant;
  * Time: 15:46
  */
 use Zodream\Infrastructure\Http\Request;
-use Zodream\Infrastructure\Http\Component\Uri;
+use Zodream\Http\Uri;
 
 class AuthCodeGrant extends BaseGrant {
 

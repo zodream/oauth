@@ -10,7 +10,7 @@ namespace Zodream\Service\Rest\OAuth\Exception;
 use Zodream\Infrastructure\Http\Response;
 use Zodream\Service\Factory;
 use Zodream\Infrastructure\Http\Request;
-use Zodream\Infrastructure\Http\Component\Uri;
+use Zodream\Http\Uri;
 
 class OAuthServerException extends \Exception {
     /**

@@ -6,7 +6,11 @@ namespace Zodream\Module\OAuth;
  * Date: 2017/1/1
  * Time: 19:22
  */
+use Zodream\Module\OAuth\Domain\Migrations\CreateOAuthTables;
 use Zodream\Service\Controller\Module as BaseModule;
-class Module extends BaseModule {
 
+class Module extends BaseModule {
+    public function getMigration() {
+        return new CreateOAuthTables();
+    }
 }

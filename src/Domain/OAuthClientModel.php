@@ -16,16 +16,4 @@ class OAuthClientModel extends BaseModel {
     public static function tableName() {
         return 'oauth_client';
     }
-
-    public static function createTable() {
-        $table = static::getTable();
-        $table->set('id')->pk();
-        $table->set('client_id')->varchar(80)->unique();
-        $table->set('client_secret')->notNull()->varchar(80);
-        $table->set('redirect_uri')->notNull()->varchar(200);
-        $table->set('user_id')->notNull(10)->int();
-        $table->set('update_at')->int(10);
-        $table->set('create_at')->int(10);
-        return $table->create();
-    }
 }

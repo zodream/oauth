@@ -1,8 +1,9 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
+
+use Zodream\Helpers\Str;
 use Zodream\Http\Uri;
 use Zodream\Infrastructure\Http\Request;
-use Zodream\Infrastructure\ObjectExpand\StringExpand;
 
 /**
  * Created by PhpStorm.
@@ -22,7 +23,7 @@ class ImplicitController extends Controller {
             return;
         }
 
-        $code = StringExpand::random();
+        $code = Str::random();
         $uri = new Uri($redirect_uri);
         return $this->redirect($uri->addData([
             'access_token' => $token,

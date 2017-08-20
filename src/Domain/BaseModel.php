@@ -2,8 +2,7 @@
 namespace Zodream\Module\OAuth\Domain;
 
 use Zodream\Database\Model\Model;
-use Zodream\Infrastructure\Database\Schema\Table;
-use Zodream\Infrastructure\ObjectExpand\StringExpand;
+use Zodream\Helpers\Str;
 
 /**
  * Class OauthClientModel
@@ -12,26 +11,12 @@ use Zodream\Infrastructure\ObjectExpand\StringExpand;
  */
 abstract class BaseModel extends Model {
 
-    public static function getTable() {
-        return new Table(static::tableName());
-    }
-
-    abstract public static function createTable();
-
-    /**
-     * 删除表
-     * @return mixed
-     */
-    public static function dropTable() {
-        return static::getTable()->drop();
-    }
-
     /**
      * 生成 access token
      * @return string
      */
     public static function generateAccessToken() {
-        return bin2hex(StringExpand::randomBytes(20));
+        return bin2hex(Str::randomBytes(20));
     }
 
     public function isExpire() {

@@ -2,8 +2,8 @@
 namespace Zodream\Module\OAuth\Service;
 
 use Zodream\Domain\Access\Auth;
+use Zodream\Helpers\Str;
 use Zodream\Http\Uri;
-use Zodream\Infrastructure\ObjectExpand\StringExpand;
 use Zodream\Module\OAuth\Domain\OAuthClientModel;
 use Zodream\Module\OAuth\Domain\OAuthClientUserModel;
 
@@ -53,7 +53,7 @@ class AuthorizeController extends Controller {
         if ($history < 0) {
             return $this->show();
         }
-        $code = StringExpand::random();
+        $code = Str::random();
 
         return $this->redirect($uri->addData([
             'code' => $code,
@@ -62,14 +62,14 @@ class AuthorizeController extends Controller {
     }
 
     public function loginAction() {
-        return $this->ajax(array(
+        return $this->json(array(
             'code' => 0,
             'data' => []
         ));
     }
 
     public function authorizeAction() {
-        return $this->ajax(array(
+        return $this->json(array(
             'code' => 0,
             'data' => ''
         ));

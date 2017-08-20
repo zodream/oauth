@@ -1,8 +1,8 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
+
 use Zodream\Http\Uri;
 use Zodream\Infrastructure\Http\Request;
-use Zodream\Infrastructure\ObjectExpand\StringExpand;
 
 /**
  * Created by PhpStorm.
@@ -18,7 +18,7 @@ class PasswordController extends Controller {
             return;
         }
 
-        return $this->ajax([
+        return $this->json([
             'access_token' => $token,
             'token_type' => '',
             'expires_in' => 3600,

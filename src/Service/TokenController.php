@@ -1,8 +1,8 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
+
 use Zodream\Http\Uri;
 use Zodream\Infrastructure\Http\Request;
-use Zodream\Infrastructure\ObjectExpand\StringExpand;
 use Zodream\Module\OAuth\Domain\OAuthAccessTokenModel;
 use Zodream\Module\OAuth\Domain\OAuthAuthorizationCodeModel;
 use Zodream\Module\OAuth\Domain\OAuthRefreshTokenModel;
@@ -32,7 +32,7 @@ class TokenController extends Controller {
         $codeModel = OAuthAuthorizationCodeModel::findByCode($data['code']);
         $tokenModel = $codeModel->exchange();
         $refreshTokenModel = $codeModel->createRefreshToken();
-        return $this->ajax([
+        return $this->json([
             'access_token' => $tokenModel->access_token,
             'token_type' => '',
             'expires_in' => 3600,
@@ -45,12 +45,12 @@ class TokenController extends Controller {
         $data = Request::post('grant_type,refresh_token,scope');
         $refreshTokenModel = OAuthRefreshTokenModel::findByToken($data['refresh_token']);
         if (empty($refreshTokenModel)) {
-            return $this->ajax([
+            return $this->json([
                 'error' => 'error refresh_token'
             ]);
         }
         $tokenModel = $refreshTokenModel->refreshToken();
-        return $this->ajax([
+        return $this->json([
             'access_token' => $tokenModel->access_token,
             'token_type' => '',
             'expires_in' => 3600,

@@ -33,14 +33,13 @@ class CreateOAuthTables extends Migration {
             $table->set('client_secret')->notNull()->varchar(80);
             $table->set('redirect_uri')->notNull()->varchar(200);
             $table->set('user_id')->notNull(10)->int();
-            $table->set('update_at')->int(10);
-            $table->set('create_at')->int(10);
+            $table->timestamps();
         });
         Schema::createTable(OAuthClientUserModel::tableName(), function(Table $table) {
             $table->set('id')->int()->pk();
             $table->set('client_id')->notNull(10)->int();
             $table->set('user_id')->notNull(10)->int();
-            $table->set('create_at')->int(10);
+            $table->timestamp('created_at');
         });
         Schema::createTable(OAuthRefreshTokenModel::tableName(), function(Table $table) {
             $table->set('refresh_token')->varchar(40)->pk();

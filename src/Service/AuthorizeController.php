@@ -29,7 +29,7 @@ class AuthorizeController extends Controller {
             ]));
         }
 
-        $model = OAuthClientModel::findOne(['client_id' => $client_id]);
+        $model = OAuthClientModel::find(['client_id' => $client_id]);
         if (empty($model)) {
             return $this->redirect($uri->addData([
                 'error' => 'error client_id',
@@ -46,10 +46,10 @@ class AuthorizeController extends Controller {
             return $this->show();
         }
 
-        $history = OAuthClientUserModel::count([
+        $history = OAuthClientUserModel::where([
             'client_id' => $model->id,
             'user_id' => Auth::user()->getId()
-        ]);
+        ])->count();
         if ($history < 0) {
             return $this->show();
         }

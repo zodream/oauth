@@ -4,8 +4,8 @@ namespace Zodream\Module\OAuth\Service;
 use Zodream\Domain\Access\Auth;
 use Zodream\Helpers\Str;
 use Zodream\Http\Uri;
-use Zodream\Module\OAuth\Domain\OAuthClientModel;
-use Zodream\Module\OAuth\Domain\OAuthClientUserModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthClientUserModel;
 
 /**
  * Created by PhpStorm.

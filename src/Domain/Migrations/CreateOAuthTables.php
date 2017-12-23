@@ -4,11 +4,11 @@ namespace Zodream\Module\OAuth\Domain\Migrations;
 use Zodream\Database\Migrations\Migration;
 use Zodream\Database\Schema\Schema;
 use Zodream\Database\Schema\Table;
-use Zodream\Module\OAuth\Domain\OAuthAccessTokenModel;
-use Zodream\Module\OAuth\Domain\OAuthAuthorizationCodeModel;
-use Zodream\Module\OAuth\Domain\OAuthClientModel;
-use Zodream\Module\OAuth\Domain\OAuthClientUserModel;
-use Zodream\Module\OAuth\Domain\OAuthRefreshTokenModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthAuthorizationCodeModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthClientUserModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthRefreshTokenModel;
 
 class CreateOAuthTables extends Migration {
     public function up() {

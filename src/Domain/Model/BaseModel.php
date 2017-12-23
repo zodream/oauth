@@ -1,5 +1,5 @@
 <?php
-namespace Zodream\Module\OAuth\Domain;
+namespace Zodream\Module\OAuth\Domain\Model;
 
 use Zodream\Database\Model\Model;
 use Zodream\Helpers\Str;

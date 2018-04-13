@@ -7,8 +7,8 @@ use Zodream\Helpers\Time;
  * Class OauthClientModel
  * @package Zodream\Module\OAuth\Domain
  * @property string $access_token
- * @property string $client_id
- * @property string $user_id
+ * @property integer $client_id
+ * @property integer $user_id
  * @property string $expires
  * @property string $scope
  */
@@ -17,6 +17,26 @@ class OAuthAccessTokenModel extends BaseModel {
 
     public static function tableName() {
         return 'oauth_access_token';
+    }
+
+    protected function rules() {
+        return [
+            'access_token' => 'required|string:0,40',
+            'client_id' => 'required|int',
+            'user_id' => 'required|int',
+            'expires' => '',
+            'scope' => 'string:0,200',
+        ];
+    }
+
+    protected function labels() {
+        return [
+            'access_token' => 'Access Token',
+            'client_id' => 'Client Id',
+            'user_id' => 'User Id',
+            'expires' => 'Expires',
+            'scope' => 'Scope',
+        ];
     }
 
     public function refreshToken() {

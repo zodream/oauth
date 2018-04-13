@@ -16,4 +16,36 @@ class OAuthClientModel extends BaseModel {
     public static function tableName() {
         return 'oauth_client';
     }
+
+    protected function rules() {
+        return [
+            'client_id' => 'string:0,80',
+            'client_secret' => 'required|string:0,80',
+            'redirect_uri' => 'required|string:0,200',
+            'user_id' => 'required|int',
+            'created_at' => 'int',
+            'updated_at' => 'int',
+        ];
+    }
+
+    protected function labels() {
+        return [
+            'id' => 'Id',
+            'client_id' => 'Client Id',
+            'client_secret' => 'Client Secret',
+            'redirect_uri' => 'Redirect Uri',
+            'user_id' => 'User Id',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
+    }
+
+    /**
+     * 判断是否是有效的回调网址
+     * @param $uri
+     * @return bool
+     */
+    public function isValidUri($uri) {
+        return parse_url($uri, PHP_URL_HOST) === $this->redirect_uri;
+    }
 }

@@ -19,7 +19,11 @@ abstract class BaseModel extends Model {
         return bin2hex(Str::randomBytes(20));
     }
 
+    /**
+     * 是否过期
+     * @return bool
+     */
     public function isExpire() {
-        return strtotime($this->expires) >= time();
+        return strtotime($this->expires) < time();
     }
 }

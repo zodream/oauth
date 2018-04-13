@@ -13,4 +13,21 @@ class OAuthClientUserModel extends BaseModel {
     public static function tableName() {
         return 'oauth_client_user';
     }
+
+    protected function rules() {
+        return [
+            'client_id' => 'required|int',
+            'user_id' => 'required|int',
+            'created_at' => 'int',
+        ];
+    }
+
+    protected function labels() {
+        return [
+            'id' => 'Id',
+            'client_id' => 'Client Id',
+            'user_id' => 'User Id',
+            'created_at' => 'Created At',
+        ];
+    }
 }

@@ -2,8 +2,7 @@
 namespace Zodream\Module\OAuth\Service;
 
 use Zodream\Service\Config;
-use Zodream\Route\Controller\Controller as BaseController;
-use Zodream\Service\Factory;
+use Zodream\Route\Controller\ModuleController as BaseController;
 use Zodream\Service\Rest\OAuth\Exception\OAuthServerException;
 
 abstract class Controller extends BaseController {

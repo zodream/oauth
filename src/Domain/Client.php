@@ -7,14 +7,14 @@ use Zodream\ThirdParty\OAuth\BaseOAuth;
 
 class Client extends BaseOAuth {
 
-    const BASE_HOST = 'http://zodream.localhost/';
+    const BASE_HOST = 'http://zodream.localhost/oauth/';
 
     /**
      * @return Http
      */
     public function getLogin() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'oauth/authorize', [
+            ->url(self::BASE_HOST.'authorize', [
                 'response_type' => 'code',
                 '#client_id',
                 '#redirect_uri',
@@ -25,7 +25,7 @@ class Client extends BaseOAuth {
 
     public function getAccess() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'oauth/token', [
+            ->url(self::BASE_HOST.'token', [
                 'grant_type' => 'authorization_code',
                 '#client_id',
                 '#client_secret',
@@ -36,7 +36,7 @@ class Client extends BaseOAuth {
 
     public function getRefresh() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'oauth/token',
+            ->url(self::BASE_HOST.'token',
                 [
                     'grant_type' => 'refresh_token',
                     '#client_id',
@@ -47,7 +47,7 @@ class Client extends BaseOAuth {
 
     public function getInfo() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'auth/api/user', [
+            ->url(self::BASE_HOST.'/user', [
                 '#client_id',
                 '#access_token'
             ]);

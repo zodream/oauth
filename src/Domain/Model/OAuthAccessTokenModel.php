@@ -64,4 +64,14 @@ class OAuthAccessTokenModel extends BaseModel {
             'expires' => Time::timestamp(time() + 3600)
         ]);
     }
+
+    /**
+     * @param $token
+     * @return static
+     */
+    public static function findByToken($token) {
+        return static::where(['access_token' => $token,
+            'expires' => ['<=', Time::timestamp()]])
+            ->one();
+    }
 }

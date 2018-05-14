@@ -33,7 +33,7 @@ class AuthorizeController extends Controller {
             ]));
         }
 
-        $model = OAuthClientModel::find(['client_id' => $client_id]);
+        $model = OAuthClientModel::findByClientId($client_id);
         if (empty($model)) {
             return $this->redirect($uri->addData([
                 'error' => 'error client_id',

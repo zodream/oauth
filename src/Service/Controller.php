@@ -1,6 +1,7 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
 
+use Zodream\Infrastructure\Http\Request;
 use Zodream\Service\Config;
 use Zodream\Route\Controller\ModuleController as BaseController;
 use Zodream\Service\Rest\OAuth\Exception\OAuthServerException;
@@ -41,25 +42,4 @@ abstract class Controller extends BaseController {
         return explode(':', $decoded, 2);
     }
 
-    protected function validateRedirectUri($inputUri, $registeredUriString) {
-        if (empty($inputUri) || empty($registeredUriString)) {
-            return false;
-        }
-
-        $registered_uris = preg_split('/\s+/', $registeredUriString);
-        foreach ($registered_uris as $registered_uri) {
-            if (Config::require_exact_redirect_uri()) {
-                if (strcmp($inputUri, $registered_uri) === 0) {
-                    return true;
-                }
-            } else {
-                if (strcasecmp(substr($inputUri, 0,
-                        strlen($registered_uri)), $registered_uri) === 0) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
 }

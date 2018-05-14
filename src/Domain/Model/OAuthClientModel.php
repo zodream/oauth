@@ -48,4 +48,21 @@ class OAuthClientModel extends BaseModel {
     public function isValidUri($uri) {
         return parse_url($uri, PHP_URL_HOST) === $this->redirect_uri;
     }
+
+    /**
+     * @param $clientId
+     * @param $clientSecret
+     * @return OAuthClientModel
+     */
+    public static function findByClient($clientId, $clientSecret) {
+        return self::where('client_id', $clientId)->where('client_secret', $clientSecret)->one();
+    }
+
+    /**
+     * @param $clientId
+     * @return OAuthClientModel
+     */
+    public static function findByClientId($clientId) {
+        return self::where('client_id', $clientId)->one();
+    }
 }

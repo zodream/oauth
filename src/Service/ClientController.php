@@ -3,6 +3,9 @@ namespace Zodream\Module\OAuth\Service;
 
 use Zodream\Http\Uri;
 use Zodream\Infrastructure\Http\Request;
+use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
+use Zodream\Module\OAuth\Domain\Model\OAuthRefreshTokenModel;
 
 /**
  * Created by PhpStorm.
@@ -17,10 +20,19 @@ class ClientController extends Controller {
         if ($data['grant_type'] !== 'client_credentials') {
             return;
         }
+        list($clientId, $clientSecret) = $this->getBasicAuthCredentials();
+        $client = OAuthClientModel::findByClient($clientId, $clientSecret);
+        if (empty($client)) {
+            return $this->jsonFailure('client_id is error!', 401);
+        }
+        $tokenModel = OAuthAccessTokenModel::createToken($client->id, 0);
+        if (empty($tokenModel) || empty($tokenModel->access_token)) {
+            return $this->jsonFailure('token is expired!', 401);
+        }
         return $this->json([
-            'access_token' => $token,
+            'access_token' => $tokenModel->access_token,
             'token_type' => '',
-            'expires_in' => 3600,
+            'expires_in' => 3600
             //'scope'
         ]);
     }

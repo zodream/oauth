@@ -70,8 +70,8 @@ class OAuthAccessTokenModel extends BaseModel {
      * @return static
      */
     public static function findByToken($token) {
-        return static::where(['access_token' => $token,
-            'expires' => ['<=', Time::timestamp()]])
+        return static::where('access_token', $token)
+            ->where('expires', '>=', Time::timestamp())
             ->one();
     }
 }

@@ -4,6 +4,7 @@ namespace Zodream\Module\OAuth\Service;
 use Zodream\Database\Model\UserModel;
 use Zodream\Infrastructure\Http\Request;
 use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
+use Zodream\Service\Config;
 use Zodream\Service\Routing\Url;
 
 class UserController extends Controller {
@@ -25,8 +26,8 @@ class UserController extends Controller {
         }
         return $this->json([
             'user_id' => $user->getIdentity(),
-            'username' => $user->username,
-            'avatar' => Url::to($user->avatar),
+            'username' => $user->name,
+            'avatar' => (string)Url::to($user->avatar),
             'sex' => $user->sex,
         ]);
     }

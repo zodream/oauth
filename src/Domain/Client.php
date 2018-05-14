@@ -47,7 +47,7 @@ class Client extends BaseOAuth {
 
     public function getInfo() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'/user', [
+            ->url(self::BASE_HOST.'user', [
                 '#client_id',
                 '#access_token'
             ]);

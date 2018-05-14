@@ -46,8 +46,8 @@ class OAuthRefreshTokenModel extends BaseModel {
      * @return static
      */
     public static function findByToken($token) {
-        return static::where(['refresh_token' => $token,
-            'expires' => ['<=', Time::timestamp()]])
+        return static::where('refresh_token', $token)
+            ->where('expires', '>=', Time::timestamp())
             ->one();
     }
 

@@ -7,14 +7,14 @@ use Zodream\ThirdParty\OAuth\BaseOAuth;
 
 class Client extends BaseOAuth {
 
-    const BASE_HOST = 'http://zodream.localhost/oauth/';
+    const BASE_HOST = 'http://zodream.localhost/';
 
     /**
      * @return Http
      */
     public function getLogin() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'authorize', [
+            ->url(self::BASE_HOST.'oauth/authorize', [
                 'response_type' => 'code',
                 '#client_id',
                 '#redirect_uri',
@@ -25,7 +25,7 @@ class Client extends BaseOAuth {
 
     public function getAccess() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'token', [
+            ->url(self::BASE_HOST.'oauth/token', [
                 'grant_type' => 'authorization_code',
                 '#client_id',
                 '#client_secret',
@@ -36,7 +36,7 @@ class Client extends BaseOAuth {
 
     public function getRefresh() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'token',
+            ->url(self::BASE_HOST.'oauth/token',
                 [
                     'grant_type' => 'refresh_token',
                     '#client_id',
@@ -47,9 +47,8 @@ class Client extends BaseOAuth {
 
     public function getInfo() {
         return $this->getBaseHttp()
-            ->url(self::BASE_HOST.'get_user_info', [
-                '#client_id:oauth_consumer_key',
-                '#openid',
+            ->url(self::BASE_HOST.'auth/api/user', [
+                '#client_id',
                 '#access_token'
             ]);
     }
@@ -78,12 +77,9 @@ class Client extends BaseOAuth {
      */
     public function info() {
         $user = $this->getInfo()->json();
-        if (!is_array($user) || !array_key_exists('nickname', $user)) {
+        if (!is_array($user) || !array_key_exists('username', $user)) {
             return false;
         }
-        $user['username'] = $user['nickname'];
-        $user['avatar'] = $user['figureurl_qq_2'];
-        $user['sex'] = $user['gender'] == '男' ? 'M' : 'F';
         $this->set($user);
         return $user;
     }

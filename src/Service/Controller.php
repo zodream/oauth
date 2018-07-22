@@ -10,20 +10,20 @@ abstract class Controller extends BaseController {
 
     protected function validateClient() {
         list($basicAuthUser, $basicAuthPassword) = $this->getBasicAuthCredentials();
-        $clientId = Request::request('client_id', $basicAuthUser);
+        $clientId = app('request')->get('client_id', $basicAuthUser);
         if (is_null($clientId)) {
             throw OAuthServerException::invalidRequest('client_id');
         }
 
         // If the client is confidential require the client secret
-        $clientSecret = Request::request('client_secret', $basicAuthPassword);
+        $clientSecret = app('request')->get('client_secret', $basicAuthPassword);
 
         // If a redirect URI is provided ensure it matches what is pre-registered
-        $redirectUri = Request::request('redirect_uri', null);
+        $redirectUri = app('request')->get('redirect_uri', null);
     }
 
     protected function getBasicAuthCredentials() {
-        $header = Request::header('Authorization');
+        $header = app('request')->header('Authorization');
         if (empty($header)) {
             return [null, null];
         }

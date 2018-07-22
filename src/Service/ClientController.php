@@ -16,7 +16,7 @@ use Zodream\Module\OAuth\Domain\Model\OAuthRefreshTokenModel;
 class ClientController extends Controller {
 
     public function indexAction() {
-        $data = Request::post('grant_type,scope');
+        $data = app('request')->get('grant_type,scope');
         if ($data['grant_type'] !== 'client_credentials') {
             return;
         }

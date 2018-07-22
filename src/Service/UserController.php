@@ -5,12 +5,12 @@ use Zodream\Database\Model\UserModel;
 use Zodream\Infrastructure\Http\Request;
 use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
 use Zodream\Service\Config;
-use Zodream\Service\Routing\Url;
+use Zodream\Infrastructure\Http\URL;
 
 class UserController extends Controller {
 
     public function indexAction() {
-        $data = Request::request('access_token,client_id');
+        $data = app('request')->get('access_token,client_id');
         $model = OAuthAccessTokenModel::findByToken($data['access_token']);
         if (empty($model)) {
             return $this->jsonFailure('token is error', 401);

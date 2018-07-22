@@ -56,7 +56,7 @@ class AuthorizeController extends Controller {
         if ($history > 0) {
             return $this->redirectWithCode($model->id, $uri, $scope, $state);
         }
-        if (!Request::isPost()) {
+        if (!app('request')->isPost()) {
             return $this->show();
         }
         return $this->redirectWithCode($model->id, $uri, $scope, $state);

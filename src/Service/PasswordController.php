@@ -22,7 +22,7 @@ class PasswordController extends Controller {
         if (empty($client)) {
             return $this->jsonFailure('client_id is error!', 401);
         }
-        $data = Request::request('grant_type,username,password,scope');
+        $data = app('request')->get('grant_type,username,password,scope');
         if ($data['grant_type'] !== 'password') {
             return $this->jsonFailure('grant_type is error!', 401);
         }

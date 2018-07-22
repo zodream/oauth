@@ -14,7 +14,7 @@ use Zodream\Module\OAuth\Domain\Model\OAuthRefreshTokenModel;
 class TokenController extends Controller {
 
     public function indexAction() {
-        $grant_type = Request::post('grant_type');
+        $grant_type = app('request')->get('grant_type');
         if ($grant_type !== 'authorization_code') {
             return $this->getToken();
         }
@@ -25,7 +25,7 @@ class TokenController extends Controller {
     }
 
     public function getToken() {
-        $data = Request::request('grant_type,code,redirect_uri,client_id');
+        $data = app('request')->get('grant_type,code,redirect_uri,client_id');
         $codeModel = OAuthAuthorizationCodeModel::findByCode($data['code']);
         $tokenModel = $codeModel->exchange();
         if (empty($tokenModel) || empty($tokenModel->access_token)) {
@@ -43,7 +43,7 @@ class TokenController extends Controller {
     }
 
     public function refreshToken() {
-        $data = Request::request('grant_type,refresh_token,scope');
+        $data = app('request')->get('grant_type,refresh_token,scope');
         $refreshTokenModel = OAuthRefreshTokenModel::findByToken($data['refresh_token']);
         if (empty($refreshTokenModel)) {
             return $this->jsonFailure('error refresh_token', 401);

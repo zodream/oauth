@@ -10,7 +10,7 @@ $this->extend('layouts/header');
 <div class="main-box">
     <div class="user-box">
         <a href="javascript:document.getElementById('scope-form').submit();">
-            <img src="<?=Auth::user()->avatar?>" alt="">
+            <img src="<?=auth()->user()->avatar?>" alt="">
         </a>
     </div>
     <div class="scope-box">

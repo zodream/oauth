@@ -46,12 +46,12 @@ class AuthorizeController extends Controller {
                 'state' => $state
             ]));
         }
-        if (Auth::guest()) {
+        if (auth()->guest()) {
             return $this->redirectWithAuth();
         }
         $history = OAuthClientUserModel::where([
             'client_id' => $model->id,
-            'user_id' => Auth::id()
+            'user_id' => auth()->id()
         ])->count();
         if ($history > 0) {
             return $this->redirectWithCode($model->id, $uri, $scope, $state);
@@ -78,14 +78,14 @@ class AuthorizeController extends Controller {
         $model = new OAuthAuthorizationCodeModel();
         $model->client_id = $client_id;
         $model->redirect_uri = (string)$redirect_uri;
-        $model->user_id = Auth::id();
+        $model->user_id = auth()->id();
         $model->scope = $scope;
         $model->authorization_code = $model->generateCode();
         $model->expires = Time::timestamp(time() + 3600);
         $model->save();
         OAuthClientUserModel::create([
             'client_id' => $client_id,
-            'user_id' => Auth::id()
+            'user_id' => auth()->id()
         ]);
         return $this->redirect($redirect_uri->addData([
             'code' => $model->authorization_code,

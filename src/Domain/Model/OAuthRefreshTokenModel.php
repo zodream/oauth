@@ -15,7 +15,7 @@ use Zodream\Helpers\Time;
  */
 class OAuthRefreshTokenModel extends BaseModel {
 
-    protected $primaryKey = ['refresh_token'];
+    protected $primaryKey = 'refresh_token';
 
     public static function tableName() {
         return 'oauth_refresh_token';

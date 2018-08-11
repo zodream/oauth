@@ -13,7 +13,7 @@ use Zodream\Helpers\Time;
  * @property string $scope
  */
 class OAuthAccessTokenModel extends BaseModel {
-    protected $primaryKey = ['access_token'];
+    protected $primaryKey = 'access_token';
 
     public static function tableName() {
         return 'oauth_access_token';

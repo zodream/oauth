@@ -15,7 +15,7 @@ use Zodream\Helpers\Str;
  */
 class OAuthAuthorizationCodeModel extends BaseModel {
 
-    protected $primaryKey = ['authorization_code'];
+    protected $primaryKey = 'authorization_code';
 
     public static function tableName() {
         return 'oauth_authorization_code';

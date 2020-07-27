@@ -18,7 +18,7 @@ class ClientController extends Controller {
     public function indexAction() {
         $data = app('request')->get('grant_type,scope');
         if ($data['grant_type'] !== 'client_credentials') {
-            return;
+            return $this->jsonFailure('grant_type error');
         }
         list($clientId, $clientSecret) = $this->getBasicAuthCredentials();
         $client = OAuthClientModel::findByClient($clientId, $clientSecret);

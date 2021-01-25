@@ -1,9 +1,7 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
 
-use Zodream\Helpers\Str;
 use Zodream\Http\Uri;
-use Zodream\Infrastructure\Http\Request;
 use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
 

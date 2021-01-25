@@ -1,14 +1,14 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
 
-use Zodream\Infrastructure\Http\Request;
-use Zodream\Route\Controller\ModuleController as BaseController;
+use Zodream\Route\Controller\Controller as BaseController;
+use Zodream\Service\Http\Request;
 
 abstract class Controller extends BaseController {
 
     protected function validateClient() {
         /** @var Request $request */
-        $request = app('request');
+        $request = $this->httpContext()->make('request');
         list($basicAuthUser, $basicAuthPassword) = $request->basicToken();
         $clientId = $request->get('client_id', $basicAuthUser);
         if (is_null($clientId)) {

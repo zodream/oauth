@@ -1,12 +1,8 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
 
-use Zodream\Domain\Access\Auth;
-use Zodream\Helpers\Str;
 use Zodream\Helpers\Time;
 use Zodream\Http\Uri;
-use Zodream\Infrastructure\Http\Request;
-use Zodream\Infrastructure\Http\Response;
 use Zodream\Module\OAuth\Domain\Model\OAuthAuthorizationCodeModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthClientUserModel;

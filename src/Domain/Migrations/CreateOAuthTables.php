@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 namespace Zodream\Module\OAuth\Domain\Migrations;
 
 use Zodream\Database\Migrations\Migration;
-use Zodream\Database\Schema\Schema;
 use Zodream\Database\Schema\Table;
 use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthAuthorizationCodeModel;
@@ -12,49 +12,37 @@ use Zodream\Module\OAuth\Domain\Model\OAuthRefreshTokenModel;
 
 class CreateOAuthTables extends Migration {
     public function up() {
-        Schema::createTable(OAuthAccessTokenModel::tableName(), function(Table $table) {
-            $table->set('access_token')->varchar(40)->pk();
-            $table->set('client_id')->notNull()->int();
-            $table->set('user_id')->notNull()->int();
-            $table->set('expires')->notNull()->timestamp();
-            $table->set('scope')->varchar(200);
-        });
-        Schema::createTable(OAuthAuthorizationCodeModel::tableName(), function(Table $table) {
-            $table->set('authorization_code')->varchar(40)->pk();
-            $table->set('client_id')->notNull()->int();
-            $table->set('user_id')->notNull()->int();
-            $table->set('redirect_uri')->varchar(200);
-            $table->set('expires')->notNull()->timestamp();
-            $table->set('scope')->varchar(200);
-        });
-        Schema::createTable(OAuthClientModel::tableName(), function(Table $table) {
-            $table->set('id')->pk()->ai();
-            $table->set('client_id')->varchar(80)->unique();
-            $table->set('client_secret')->notNull()->varchar(80);
-            $table->set('redirect_uri')->notNull()->varchar(200);
-            $table->set('user_id')->notNull(10)->int();
+        $this->append(OAuthAccessTokenModel::tableName(), function(Table $table) {
+            $table->string('access_token', 40)->pk();
+            $table->int('client_id');
+            $table->int('user_id');
+            $table->timestamp('expires');
+            $table->string('scope', 200)->default('');
+        })->append(OAuthAuthorizationCodeModel::tableName(), function(Table $table) {
+            $table->string('authorization_code', 40)->pk();
+            $table->int('client_id');
+            $table->int('user_id');
+            $table->string('redirect_uri', 200);
+            $table->timestamp('expires');
+            $table->string('scope', 200);
+        })->append(OAuthClientModel::tableName(), function(Table $table) {
+            $table->int('id')->pk(true);
+            $table->string('client_id', 80)->unique();
+            $table->string('client_secret', 80);
+            $table->string('redirect_uri', 200);
+            $table->int('user_id');
             $table->timestamps();
-        });
-        Schema::createTable(OAuthClientUserModel::tableName(), function(Table $table) {
-            $table->set('id')->pk()->ai();
-            $table->set('client_id')->notNull()->int();
-            $table->set('user_id')->notNull()->int();
+        })->append(OAuthClientUserModel::tableName(), function(Table $table) {
+            $table->int('id')->pk(true);
+            $table->int('client_id');
+            $table->int('user_id');
             $table->timestamp('created_at');
-        });
-        Schema::createTable(OAuthRefreshTokenModel::tableName(), function(Table $table) {
-            $table->set('refresh_token')->varchar(40)->pk();
-            $table->set('client_id')->notNull()->int();
-            $table->set('user_id')->notNull()->int();
-            $table->set('expires')->notNull()->timestamp();
-            $table->set('scope')->varchar(200);
-        });
-    }
-
-    public function down() {
-        Schema::dropTable(OAuthAccessTokenModel::tableName());
-        Schema::dropTable(OAuthAuthorizationCodeModel::tableName());
-        Schema::dropTable(OAuthClientModel::tableName());
-        Schema::dropTable(OAuthClientUserModel::tableName());
-        Schema::dropTable(OAuthRefreshTokenModel::tableName());
+        })->append(OAuthRefreshTokenModel::tableName(), function(Table $table) {
+            $table->string('refresh_token', 40)->pk();
+            $table->int('client_id');
+            $table->int('user_id');
+            $table->timestamp('expires');
+            $table->string('scope', 200);
+        })->autoUp();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace Zodream\Module\OAuth\Service;
 
+use Zodream\Infrastructure\Contracts\Http\Input;
 use Zodream\Module\OAuth\Domain\Model\OAuthAccessTokenModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
 
@@ -12,12 +13,12 @@ use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
  */
 class ClientController extends Controller {
 
-    public function indexAction() {
+    public function indexAction(Input $input) {
         $data = app('request')->get('grant_type,scope');
         if ($data['grant_type'] !== 'client_credentials') {
             return $this->renderFailure('grant_type error');
         }
-        list($clientId, $clientSecret) = $this->getBasicAuthCredentials();
+        list($clientId, $clientSecret) = $input->basicToken();
         $client = OAuthClientModel::findByClient($clientId, $clientSecret);
         if (empty($client)) {
             return $this->renderFailure('client_id is error!', 401);

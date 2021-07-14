@@ -3,6 +3,7 @@ namespace Zodream\Module\OAuth\Service;
 
 use Zodream\Helpers\Time;
 use Zodream\Http\Uri;
+use Zodream\Infrastructure\Contracts\Http\Output;
 use Zodream\Module\OAuth\Domain\Model\OAuthAuthorizationCodeModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthClientModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthClientUserModel;
@@ -64,7 +65,7 @@ class AuthorizeController extends Controller {
      * @param Uri $redirect_uri
      * @param null $scope
      * @param null $state
-     * @return Response
+     * @return Output
      * @throws \Exception
      */
     protected function redirectWithCode($client_id,

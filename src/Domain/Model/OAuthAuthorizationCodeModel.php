@@ -15,13 +15,13 @@ use Zodream\Helpers\Str;
  */
 class OAuthAuthorizationCodeModel extends BaseModel {
 
-    protected $primaryKey = 'authorization_code';
+    protected string $primaryKey = 'authorization_code';
 
-    public static function tableName() {
+    public static function tableName(): string {
         return 'oauth_authorization_code';
     }
 
-    protected function rules() {
+    protected function rules(): array {
         return [
             'authorization_code' => 'required|string:0,40',
             'client_id' => 'required|int',
@@ -32,7 +32,7 @@ class OAuthAuthorizationCodeModel extends BaseModel {
         ];
     }
 
-    protected function labels() {
+    protected function labels(): array {
         return [
             'authorization_code' => 'Authorization Code',
             'client_id' => 'Client Id',

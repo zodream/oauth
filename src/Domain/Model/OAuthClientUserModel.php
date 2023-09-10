@@ -10,11 +10,11 @@ namespace Zodream\Module\OAuth\Domain\Model;
  * @property integer $create_at
  */
 class OAuthClientUserModel extends BaseModel {
-    public static function tableName() {
+    public static function tableName(): string {
         return 'oauth_client_user';
     }
 
-    protected function rules() {
+    protected function rules(): array {
         return [
             'client_id' => 'required|int',
             'user_id' => 'required|int',
@@ -22,7 +22,7 @@ class OAuthClientUserModel extends BaseModel {
         ];
     }
 
-    protected function labels() {
+    protected function labels(): array {
         return [
             'id' => 'Id',
             'client_id' => 'Client Id',

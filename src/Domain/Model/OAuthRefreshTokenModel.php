@@ -15,13 +15,13 @@ use Zodream\Helpers\Time;
  */
 class OAuthRefreshTokenModel extends BaseModel {
 
-    protected $primaryKey = 'refresh_token';
+    protected string $primaryKey = 'refresh_token';
 
-    public static function tableName() {
+    public static function tableName(): string {
         return 'oauth_refresh_token';
     }
 
-    protected function rules() {
+    protected function rules(): array {
         return [
             'refresh_token' => 'required|string:0,40',
             'client_id' => 'required|int',
@@ -31,7 +31,7 @@ class OAuthRefreshTokenModel extends BaseModel {
         ];
     }
 
-    protected function labels() {
+    protected function labels(): array {
         return [
             'refresh_token' => 'Refresh Token',
             'client_id' => 'Client Id',
@@ -45,7 +45,7 @@ class OAuthRefreshTokenModel extends BaseModel {
      * @param string $token
      * @return static
      */
-    public static function findByToken($token) {
+    public static function findByToken(string $token) {
         return static::where('refresh_token', $token)
             ->where('expires', '>=', Time::timestamp())
             ->one();

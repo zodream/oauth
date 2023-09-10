@@ -11,7 +11,7 @@ use Zodream\Module\OAuth\Domain\Model\OAuthClientUserModel;
 use Zodream\Module\OAuth\Domain\Model\OAuthRefreshTokenModel;
 
 class CreateOAuthTables extends Migration {
-    public function up() {
+    public function up(): void {
         $this->append(OAuthAccessTokenModel::tableName(), function(Table $table) {
             $table->string('access_token', 40)->pk();
             $table->int('client_id');

@@ -15,11 +15,11 @@ class OAuthPublicKeyModel extends BaseModel {
     const MD5 = 'MD5';
     const RSA = 'RSA';
 
-    public static function tableName() {
+    public static function tableName(): string {
         return 'oauth_public_key';
     }
 
-    public function getSignType() {
+    public function getSignType(): string {
         return strtoupper($this->get('encryption_algorithm', self::RSA2));
     }
 

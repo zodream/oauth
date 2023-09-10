@@ -13,13 +13,13 @@ use Zodream\Helpers\Time;
  * @property string $scope
  */
 class OAuthAccessTokenModel extends BaseModel {
-    protected $primaryKey = 'access_token';
+    protected string $primaryKey = 'access_token';
 
-    public static function tableName() {
+    public static function tableName(): string {
         return 'oauth_access_token';
     }
 
-    protected function rules() {
+    protected function rules(): array {
         return [
             'access_token' => 'required|string:0,40',
             'client_id' => 'required|int',
@@ -29,7 +29,7 @@ class OAuthAccessTokenModel extends BaseModel {
         ];
     }
 
-    protected function labels() {
+    protected function labels(): array {
         return [
             'access_token' => 'Access Token',
             'client_id' => 'Client Id',

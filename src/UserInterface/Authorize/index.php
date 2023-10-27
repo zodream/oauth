@@ -4,7 +4,7 @@ use Zodream\Template\View;
 use Zodream\Domain\Access\Auth;
 /** @var $this View */
 $this->title = '授权登录';
-$this->extend('layouts/header');
+$this->layout = 'main';
 ?>
 
 <div class="main-box">
@@ -24,5 +24,3 @@ $this->extend('layouts/header');
         </form>
     </div>
 </div>
-
-<?php $this->extend('layouts/footer');?>
